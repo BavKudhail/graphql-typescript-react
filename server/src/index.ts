@@ -11,13 +11,16 @@ import UserResolver from './schema/User/UserResolver';
 import express from 'express';
 import http from 'http';
 const prisma = new PrismaClient();
+import * as cors from 'cors';
 
 const app = express();
 
 const httpServer = http.createServer(app);
 
 const main = async () => {
-  const schema = await tq.buildSchema({ resolvers: [UserResolver] });
+  const schema = await tq.buildSchema({
+    resolvers: [UserResolver],
+  });
 
   const context = {
     prisma,

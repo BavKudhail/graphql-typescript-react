@@ -1,4 +1,5 @@
-import { Field, ObjectType, ID } from 'type-graphql';
+import { IsEmail, Length } from 'class-validator';
+import { Field, ObjectType, ID, InputType } from 'type-graphql';
 
 @ObjectType()
 class User {
@@ -12,9 +13,26 @@ class User {
   email: string;
 
   password: string;
+}
+
+@InputType()
+export class RegisterUserInput {
+  @Field({ nullable: false })
+  username: string;
 
   @Field()
-  religion: string;
+  @IsEmail()
+  email: string;
+
+  @Field()
+  @Length(6, 30)
+  password: string;
+
+  @Field()
+  @Length(6, 30)
+  confirmPassword: string;
 }
 
 export default User;
+
+// CLASS VALIDATORS
