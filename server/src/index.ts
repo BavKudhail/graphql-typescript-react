@@ -6,12 +6,19 @@ import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { PrismaClient } from '@prisma/client';
 import UserResolver from './schema/User/UserResolver';
 import express from 'express';
-// what exactly does the below code do?
+
+// cookies
+import cookieParser from 'cookie-parser';
+
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { BuildContext } from 'type-graphql/dist/schema/build-context';
 const prisma = new PrismaClient();
 
 const app = express();
+
+
+
+console.log('hello');
 
 // const webSocketContext = ({ request, reply, connectionParams }) => {
 //   return { request, reply };
@@ -19,9 +26,20 @@ const app = express();
 
 // CORS configuration
 const corsOptions = {
-  origin: 'http://localhost:4000',
+  origin: (origin, callback) => {
+    if (
+      ['https://localhost:4000', 'https://studio.apollographql.com/'].includes(
+        origin
+      )
+    ) {
+      return callback(null, true);
+    }
+    return callback(new Error('not allowed'), false);
+  },
+  // credentials is required as we are going to be setting cookies
   credentials: true,
 };
+
 
 const main = async () => {
   const schema = await buildSchema({
