@@ -11,6 +11,7 @@ class UserResolver {
       id: '21343232',
       email: 'username@email.com',
       username: 'username',
+      religion: 'sikh',
     };
   }
 }

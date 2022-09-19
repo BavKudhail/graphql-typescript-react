@@ -12,6 +12,9 @@ class User {
   email: string;
 
   password: string;
+
+  @Field()
+  religion: string;
 }
 
 export default User;
