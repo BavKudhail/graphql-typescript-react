@@ -16,8 +16,6 @@ const prisma = new PrismaClient();
 
 const app = express();
 
-
-
 console.log('hello');
 
 // const webSocketContext = ({ request, reply, connectionParams }) => {
@@ -39,7 +37,6 @@ const corsOptions = {
   // credentials is required as we are going to be setting cookies
   credentials: true,
 };
-
 
 const main = async () => {
   const schema = await buildSchema({
@@ -74,27 +71,3 @@ const main = async () => {
 main().catch((error) => {
   console.log(error, 'error');
 });
-
-// @21.52 - person creates another server - a subscriptionServer, why is this required?
-
-// not sure why a subscription server is required tho?
-
-// const subscriptionServer = (schema, server) => {
-//   schema: GraphQLSchema;
-//   server: ApolloServer;
-
-//   return SubscriptionServer.create(
-//     {
-//       schema,
-//       execute,
-//       subscribe,
-//       async onConnect(connectionParams: Object) {
-//         return webSocketContext({ connectionParams });
-//       },
-//     },
-//     {
-//       server,
-//       path: '/graphql',
-//     }
-//   );
-// };
